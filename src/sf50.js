@@ -4,16 +4,7 @@ import { getResolvedPDFJS } from "unpdf";
 
 dayjs.extend(duration);
 
-export const getSF50data = async (pdfArrayBuffer) => {
-  const pdfjs = await getResolvedPDFJS();
-
-  // Load the PDF from bytes. If there's a password, like for the separation
-  // packet, use it.
-  const doc = await pdfjs.getDocument({
-    password: "*** put password here ***",
-    data: pdfArrayBuffer.slice(0, pdfArrayBuffer.byteLength),
-  }).promise;
-
+const getSF50data = async (doc) => {
   const sf50data = new Map();
 
   for (let i = 1; i <= doc.numPages; i += 1) {
@@ -160,12 +151,80 @@ export const getSF50data = async (pdfArrayBuffer) => {
   // date the SF-50 was sent. It could have been sent later, but not earlier.
   const metadata = await doc.getMetadata().then((m) => m.metadata);
   if (metadata) {
+    let date = false;
     if (metadata.get("xmp:modifydate")) {
+      date = metadata.get("xmp:modifydate");
       sf50data.set("delivered", metadata.get("xmp:modifydate").split("T")[0]);
     } else {
-      sf50data.set("delivered", metadata.get("xmp:createdate").split("T")[0]);
+      date = metadata.get("xmp:createdate");
+    }
+
+    if (date) {
+      const [, year, month, day] = date.match(/^(\d{4})-(\d{2})-(\d{2})T/);
+      sf50data.set("delivered", `${month}/${day}/${year}`);
     }
   }
 
   return sf50data;
+};
+
+export default async (file) => {
+  const pdfjs = await getResolvedPDFJS();
+
+  const readFile = () =>
+    new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.addEventListener("load", (e) => {
+        resolve(e.target.result);
+      });
+      reader.readAsArrayBuffer(file);
+    });
+
+  const data = await readFile();
+  let needsPassword = false;
+
+  const loadPDF = async (data, password) => {
+    const options = { data: data.slice(0, data.byteLength) };
+    if (password) {
+      options.password = password;
+    }
+
+    return pdfjs
+      .getDocument(options)
+      .promise.then((pdf) => {
+        needsPassword = false;
+        return getSF50data(pdf);
+      })
+      .catch((e) => {
+        if (e.name === "PasswordException") {
+          needsPassword = true;
+        } else {
+          throw e;
+        }
+      });
+  };
+
+  let readyHandler = null;
+
+  let sf50data = await loadPDF(data);
+  if (sf50data?.size > 0 && readyHandler) {
+    readyHandler(sf50data);
+  }
+
+  const setPassword = async (password) => {
+    sf50data = await loadPDF(data, password);
+    if (sf50data?.size > 0 && readyHandler) {
+      readyHandler(sf50data);
+    }
+  };
+
+  return {
+    get needsPassword() {
+      return needsPassword;
+    },
+    setPassword,
+    onReady(handler) {
+      readyHandler = handler;
+    },
+  };
 };

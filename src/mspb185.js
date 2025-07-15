@@ -38,19 +38,20 @@ export const loadMSPB185 = async (sf50) => {
 
   // Create a browser-local URL from the bytes.
   const url = URL.createObjectURL(saved);
+  return url;
 
   // Create a link, set its href, set its download attribute to trigger the
   // browser to save it, add it to the document, and click it.
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "mspb-18f.pdf";
-  document.body.appendChild(a);
-  a.click();
+  // const a = document.createElement("a");
+  // a.href = url;
+  // a.download = "mspb-18f.pdf";
+  // document.body.appendChild(a);
+  // a.click();
 
   // Wait a tick, then revoke the URL. Otherwise you've got a memory leak.
   // While we're at it, remove the link, too.
-  setTimeout(() => {
-    URL.revokeObjectURL(url);
-    a.remove();
-  }, 10);
+  // setTimeout(() => {
+  //   URL.revokeObjectURL(url);
+  //   a.remove();
+  // }, 10);
 };
