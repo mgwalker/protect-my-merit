@@ -1,0 +1,95 @@
+name_01_1 : Name (Last, First, Middle)
+ssn_02_1 : Social Security Number
+dob_03_1 : Date of Birth
+effectivedate_04_1 : Effective Date
+code_05A_1 : 5-A Code
+natureofaction_05B_1 : 5-B Name of Action
+code_05C_1 : 5-C Code
+legalauthority_05D_1 : 5-D Legal Authority
+code_05E_1 : 5-E Code
+legalauthority_05F_1 : 5-F Legal Authority
+code_06A_1 : 6-A Code
+natureofaction_06B_1 : 6-B Name of Action
+code_06C_1 : 6-C Code
+legalauthority_06D_1 : 6-D Legal Authority
+code_06E_1 : 6-E Code
+legalauthority_06F_1 : 6-F Legal Authority
+titleandnumber_07_1 : From Position Title and Number Line 1
+titleandnumber_07A_1 : From Position Title and Number Line 2
+titleandnumber_07B_1 : From Position Title and Number Line 3
+payplan_08_1 : From Pay Plan
+occcode_09_1 : From Occupation Code
+gradeorlevel_10_1 : From Grade or Level
+steporrate_11_1 : From Step/Rate
+totalsalary_12_1 : From Total Salary
+basicpay_12A_1 : From Basic Pay
+localityadj_12B_1 : From Locality Adjustment
+adjbasicpay_12C_1 : From Adjusted Basic Pay
+otherpay_12D_1 : From Other Pay
+paybasis_13_1 : From Pay Basis
+positionorganization_14_1 : Position Organization Line 1
+positionorganization_14A_1 : Position Organization Line 2
+positionorganization_14B_1 : Position Organization Line 3
+positionorganization_14C_1 : Position Organization Line 4
+positionorganization_14D_1 : Position Organization Line 5
+positionorganization_14E_1 : Position Organization Line 6
+positionorganization_14F_1 : Position Organization Line 7
+titleandnumber_15_1 : To Position Title and Number Line 1
+titleandnumber_15A_1 : To Position Title and Number Line 2
+titleandnumber_15B_1 : To Position Title and Number Line 3
+payplan_16_1 : To Pay Plan
+occcode_17_1 : To Occupation Code
+gradeorlevel_18_1 : To Grade or Level
+steporrate_19_1 : To Step/Rate
+totalsalary_20_1 : To Total Salary
+basicpay_20A_1 : To Basic Pay
+localityadj_20B_1 : To Locality Adjustment
+adjbasicpay_20C_1 : To Adjusted Basic Pay
+otherpay_20D_1 : To Other Pay
+paybasis_21_1 : To Pay Basis
+positionorganization_22_1 : To Position Organization Line 1
+positionorganization_22A_1 : To Position Organization Line 2
+positionorganization_22B_1 : To Position Organization Line 3
+positionorganization_22C_1 : To Position Organization Line 4
+positionorganization_22D_1 : To Position Organization Line 5
+positionorganization_22E_1 : Position Organization Line 6
+positionorganization_22F_1 : To Position Organization Line 7
+veteranspreference_23_1 : Veterans Preference - 1 for None, 2 for 5 point, 3 for 10 point disibility, 4 for 10 point compensable, 5 for 10 point other, 6 for 10 point Compensable 30%
+retirementplan_30_1 : Retirement Plan Code
+tenure_24_1 : Tenure - 0 for None, 1 for Permanent, 2 for Conditional, 3 for Indefinite
+agencyuse_25_1 : Agency Use
+agencyuse_25A : Agency Use 25 A
+RifYes_1 : R I F Yes
+RifNo_1 : R I F No
+fegli_27_1 : F E G L I Code
+fegli_27A_1 : F E G L I Text
+annuitantindicator_28_1 : Annuitant Indicator Code
+annuitantindicator_28A_1 : Annuitant Indicator Text
+payratedeterminate_29_1 : Pay Rate Determinate
+payratedeterminate_29A_1 : Pay Rate Determinate Description
+retirementplan_30A_1 : Retirement Plan Text
+servicecompdate_31_1 : Service Complete Date (Leave)
+workschedule_32_1 : Work Schedule Code
+workschedule_32A_1 : Work Schedule Text
+parttimehours_33_1 : Part Time Hours
+positionoccupied_34_1 : Position Occupied - 1 for Competitive Service, 2 for Excepted Service, 3 for SES General, 4 for SES Career Reserved
+flsacategory_35_1 : F L S A Category - E for Exempt, N for non-exempt
+appropriationcode_36_1 : Appropriation Code
+bargainingunitstatus_37_1 : Bargaining Unit Status
+dutystationcode_38_1 : Duty Station Code
+dutystation_39_1 : Duty Station
+agencydata_40_1 : Agency Data Field 40
+agencydata_41_1 : Agency Data Field 41
+agencydata_42_1 : Agency Data Field 42
+agencydata_43_1 : Agency Data Field 43
+agencydata_44_1 : Agency Data Field 44
+remarks_45_1 : Remarks
+employingdepartment_46_1 : Employing Department
+agencycode_47_1 : Agency Code
+personnelofficeid_48_1 : Personnel Office ID
+approvaldate_49_1 : Approval Date
+clerk_init : Clerks Initials
+signature_50_1 : Signature/Authentication and Title of Approving Official
+signature_50a_1 : Signature Continued
+signature_50b_1 : Signature Continued
+----

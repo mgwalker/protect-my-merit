@@ -1,0 +1,71 @@
+Last Name
+First
+M Initial
+Address
+City
+State
+Zip Code
+Cell
+Home
+Work
+Fax
+Email Address
+Agency Name
+Bureau1
+Agency Address
+Agency City
+Agency State
+Agency Zip
+Phone Number
+Competitive
+Postal Service
+Other Type of Appointment
+Excepted
+SES
+Permanent
+Seasonal
+None
+Temporary
+Applicant
+Term
+Retired
+Other describe
+Occupational Series
+Grade or Pay Band
+Position Title
+Duty Station
+Yes Vet
+No Vet
+Years
+Months
+Yes
+undefined
+No
+undefined_2
+Yes Hearing
+undefined_3
+No Hearing
+undefined_4
+Removal termination after completion of
+Involuntary resignation
+Termination during probationary or initial
+Involuntary retirement
+Reduction in grade pay or band
+Denial of withingrade increase
+Suspension for more than 14 days
+Furlough of 30 days or less
+Failure to restorereemployreinstate or improper
+Separation demotion or furlough for more than 30 days by
+Negative suitability determination
+Other Action
+Other action describe
+Decision Letter Date
+Decision Letter Effective Date_af_date
+resolution ADR process
+ADR Yes
+ADR No
+Brief Explanation
+Yes Part 2
+No Part 2
+Agency Name_2
+Date Filed_af_date

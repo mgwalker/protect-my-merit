@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "esbuild": "^0.25.6",
+    "pdf-lib": "1.11",
+    "unpdf": "^1.0.6"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "prettier": "^3.6.2",
+    "watch": "^1.0.2"
+  },
+  "scripts": {
+    "prebuild": "rm -rf dist && mkdir -p data",
+    "build": "esbuild src/main.js --bundle --minify --outfile=dist/main.js",
+    "postbuild": "cp -R data dist/ && cp src/*.html dist && cp src/*.css dist",
+    "serve": "npm run build && http-server dist",
+    "watch": "npm run serve & watch 'npm run build' --interval 0.1 src"
+  },
+  "prettier": {}
+}
