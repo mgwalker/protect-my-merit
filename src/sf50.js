@@ -168,9 +168,13 @@ const getSF50data = async (doc) => {
   return sf50data;
 };
 
+// Given a browser File object, attempt to load it as a PDF and then parse it
+// as an SF-50 document.
 export default async (file) => {
   const pdfjs = await getResolvedPDFJS();
 
+  // Read the file into an array buffer. The browser API for this is event-based
+  // so we wrap it in a promise to make it a little nicer to deal with.
   const readFile = () =>
     new Promise((resolve) => {
       const reader = new FileReader();
@@ -181,36 +185,57 @@ export default async (file) => {
     });
 
   const data = await readFile();
+
+  // By default, assume the PDF does not need a password. We'll see.
   let needsPassword = false;
 
+  // Helper function. Attempts to read the file provided above as a PDf and
+  // parse it into SF-50 data. Sets the needsPassword function as appropriate.
   const loadPDF = async (data, password) => {
+    // Make a copy of the data to be loaded as a PDF. This is not ideal, but
+    // we may need to try loading this PDF again and we don't want it to already
+    // be detached.
     const options = { data: data.slice(0, data.byteLength) };
+
+    // If we have a password, set that too.
     if (password) {
       options.password = password;
     }
 
+    // Attempt to load the PDF.
     return pdfjs
       .getDocument(options)
       .promise.then((pdf) => {
+        // If we succeed, clear the needsPassword flag and then attempt to
+        // parse the PDF into SF-50 data. Return the parsed data.
         needsPassword = false;
         return getSF50data(pdf);
       })
       .catch((e) => {
+        // If there is a password exception, set the needsPassword flag so the
+        // UI can be updated accordingly.
         if (e.name === "PasswordException") {
           needsPassword = true;
         } else {
+          // For other exceptions, preserve them so they show up in the console
+          // and we can debug them as we encounter them.
           throw e;
         }
       });
   };
 
+  // Ready handler, subscribed from whoever calls us. (In this case, that
+  // happens in the upload.js script.)
   let readyHandler = null;
 
+  // Try to get SF-50 data. If we succeed and there's a ready handler, call it.
   let sf50data = await loadPDF(data);
   if (sf50data?.size > 0 && readyHandler) {
     readyHandler(sf50data);
   }
 
+  // If we previously tried to load the PDF and failed because we needed a
+  // password, we can try again with the password.
   const setPassword = async (password) => {
     sf50data = await loadPDF(data, password);
     if (sf50data?.size > 0 && readyHandler) {
@@ -219,11 +244,25 @@ export default async (file) => {
   };
 
   return {
+    // Getter for the needsPassword flag, so it'll always reference our internal
+    // variable instead of creating a copy.
     get needsPassword() {
       return needsPassword;
     },
+
+    // Expose the setPassword helper.
     setPassword,
+
+    // Subscribe to ready callback.
     onReady(handler) {
+      // If there was not already a ready callback AND we already have SF-50
+      // data, immediately call the new handler. This way if someone attaches
+      // the callback after initializing this object, they can still get the
+      // callback as expected.
+      if (readyHandler === null && handler !== null && sf50data?.size > 0) {
+        handler(sf50data);
+      }
+
       readyHandler = handler;
     },
   };

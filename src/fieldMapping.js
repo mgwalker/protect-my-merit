@@ -29,8 +29,8 @@ mspbToSF50Mapping.set(
 
 export default mspbToSF50Mapping;
 
+// Map of SF-50 field names to human-meaningful names.
 export const sf50FieldNames = new Map();
-
 sf50FieldNames.set("last name", "Last name");
 sf50FieldNames.set("first name", "First name");
 sf50FieldNames.set("middle initial", "Middle initial");
