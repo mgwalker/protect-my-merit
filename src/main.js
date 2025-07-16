@@ -1,8 +1,11 @@
 import { loadMSPB185 } from "./mspb185";
 import handleUpload from "./upload";
 import { sf50FieldNames } from "./fieldMapping";
+import * as PDFJS from "pdfjs-dist";
 
 const main = async () => {
+  PDFJS.GlobalWorkerOptions.workerSrc = "pdf.worker.mjs";
+
   const dataContainer = document.getElementById("sf50-data");
   let mspbFormDataURL = null;
 

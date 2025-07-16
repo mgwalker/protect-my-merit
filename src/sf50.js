@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration.js";
-import { getResolvedPDFJS } from "unpdf";
+import * as pdfjs from "pdfjs-dist";
 
 dayjs.extend(duration);
 
@@ -16,6 +16,13 @@ const getSF50data = async (doc) => {
     if (text?.items?.[2].str !== "Standard Form 50") {
       continue;
     }
+
+    // Default to GSA. For some reason, SF-50s don't always have the agency
+    // name, even though there's a spot for it. :shrug:
+    sf50data.set(
+      "positionorganization_14_1",
+      "General Services Administration",
+    );
 
     // See if the SF-50 has field annotations. If it does, we can pull all of
     // the fields and just pass it right along. Easy peasy. SF-50s from eOPF
@@ -43,7 +50,10 @@ const getSF50data = async (doc) => {
 
       // GSA does not identify itself in our SF-50s for some reason. It only
       // identifies FAS and org parts below that, not GSA itself.
-      sf50data.set("positionorganization_14_1", "");
+      sf50data.set(
+        "positionorganization_14_1",
+        "General Services Administration",
+      );
       sf50data.set("positionorganization_14A_1", lines[234]);
 
       // Appointment type checkbox
@@ -171,8 +181,6 @@ const getSF50data = async (doc) => {
 // Given a browser File object, attempt to load it as a PDF and then parse it
 // as an SF-50 document.
 export default async (file) => {
-  const pdfjs = await getResolvedPDFJS();
-
   // Read the file into an array buffer. The browser API for this is event-based
   // so we wrap it in a promise to make it a little nicer to deal with.
   const readFile = () =>

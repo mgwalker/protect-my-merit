@@ -1,11 +1,10 @@
-import { getResolvedPDFJS } from "unpdf";
+import * as pdfjs from "pdfjs-dist";
 import mapping from "./fieldMapping.js";
 
 export const loadMSPB185 = async (sf50) => {
   const formArrayBuffer = await fetch("data/MSPB-185-09-23.pdf").then((r) =>
     r.arrayBuffer(),
   );
-  const pdfjs = await getResolvedPDFJS();
   const doc = await pdfjs.getDocument(formArrayBuffer).promise;
 
   // We can modify this annotationStorage object in order to persist changes.
