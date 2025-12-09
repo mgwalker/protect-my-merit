@@ -1,10 +1,10 @@
 import * as pdfjs from "pdfjs-dist";
 import mapping from "./fieldMapping.js";
 
-export const loadMSPB185 = async (sf50) => {
-  const formArrayBuffer = await fetch("data/MSPB-185-09-23.pdf").then((r) =>
-    r.arrayBuffer(),
-  );
+export const loadMSPB185 = async (sf50, { data }) => {
+  const formArrayBuffer = data
+    ? data.slice(0, data.byteLength)
+    : await fetch("data/MSPB-185-09-23.pdf").then((r) => r.arrayBuffer());
   const doc = await pdfjs.getDocument(formArrayBuffer).promise;
 
   // We can modify this annotationStorage object in order to persist changes.
@@ -33,8 +33,12 @@ export const loadMSPB185 = async (sf50) => {
   }
 
   // Save the modified document to bytes.
-  const saved = new Blob([await doc.saveDocument()]);
+  const saved = await doc.saveDocument();
+
+  if (data) {
+    return saved;
+  }
 
   // Create a browser-local URL from the bytes.
-  return URL.createObjectURL(saved);
+  return URL.createObjectURL(new Blob([saved]));
 };

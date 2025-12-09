@@ -2,6 +2,7 @@
   "type": "module",
   "dependencies": {
     "dayjs": "^1.11.13",
+    "dotenv": "^17.2.0",
     "esbuild": "^0.25.6",
     "pdfjs-dist": "^5.3.93"
   },

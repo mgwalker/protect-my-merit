@@ -1,7 +1,10 @@
 node_modules
 
+docs/data/out
 docs/data/*.pdf
 !docs/data/MSPB-185-09-23.pdf
 
+data/out
 data/*.pdf
 !data/MSPB-185-09-23.pdf
+.env

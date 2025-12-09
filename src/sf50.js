@@ -1,10 +1,10 @@
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration.js";
-import * as pdfjs from "pdfjs-dist";
+import * as pdfjs from "pdfjs-dist/legacy/build/pdf.mjs";
 
 dayjs.extend(duration);
 
-const getSF50data = async (doc) => {
+export const getSF50data = async (doc) => {
   const sf50data = new Map();
 
   for (let i = 1; i <= doc.numPages; i += 1) {
@@ -13,7 +13,7 @@ const getSF50data = async (doc) => {
 
     // We're currently only looking for the SF-50, which can be identified
     // consistently by the second text item. If this isn't the SF-50, skip it.
-    if (text?.items?.[2].str !== "Standard Form 50") {
+    if (text?.items?.[2]?.str !== "Standard Form 50") {
       continue;
     }
 
